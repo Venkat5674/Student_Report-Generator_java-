@@ -1,0 +1,54 @@
+# Compiled class files
+bin/
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Build directory
+target/
+build/
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Virtual machine crash logs
+hs_err_pid*
+
+# IDE-specific files
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# Eclipse specific files
+.metadata
+.recommenders
+
+# VS Code specific files (keep tasks.json)
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Student data files (may contain personal data)
+# Uncomment the next line if you don't want to include sample data
+# students.ser
+
+# Deployment package
+deploy/
+
+# Temporary files
+*~
+.*.swp
+.DS_Store
+
+# Logs
+*.log
+
+# Exception: Keep the lib directory structure but ignore JAR files
+# This allows collaborators to know they need to download dependencies
+lib/*.jar
+!lib/README.txt

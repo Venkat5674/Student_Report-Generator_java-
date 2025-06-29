@@ -1,0 +1,47 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        
+    - name: Create lib directory
+      run: mkdir -p lib
+        
+    - name: Download iText library
+      run: |
+        wget -O lib/itextpdf-5.5.13.3.jar https://github.com/itext/itextpdf/releases/download/5.5.13.3/itextpdf-5.5.13.3.jar
+      continue-on-error: true
+        
+    - name: Build with javac
+      run: |
+        mkdir -p bin
+        javac -d bin -cp "lib/*:." $(find src/main/java -name "*.java")
+      
+    - name: Create deployable package
+      run: |
+        mkdir -p deploy
+        mkdir -p META-INF
+        echo "Main-Class: view.StudentReportGeneratorApp" > META-INF/MANIFEST.MF
+        if [ -f lib/itextpdf-5.5.13.3.jar ]; then
+          jar cvfm deploy/StudentReportGenerator.jar META-INF/MANIFEST.MF -C bin . lib/itextpdf-5.5.13.3.jar
+        else
+          jar cvfm deploy/StudentReportGenerator.jar META-INF/MANIFEST.MF -C bin .
+        fi
+        cp README.md deploy/
+        cp PROJECT_DOCUMENTATION.md deploy/
+        echo "Build successful! See deploy/ directory for the deployable package."

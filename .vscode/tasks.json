@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile and Run",
+            "type": "shell",
+            "command": "${workspaceFolder}\\run.bat",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build with iText",
+            "type": "shell",
+            "command": "${workspaceFolder}\\build.bat",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Compile Only",
+            "type": "shell",
+            "command": "if not exist bin mkdir bin && javac -d bin -cp \"lib/*;.\" src/main/java/model/*.java src/main/java/controller/*.java src/main/java/util/*.java src/main/java/view/*.java",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "if exist bin rmdir /s /q bin",
+            "problemMatcher": []
+        }
+    ]
+}
