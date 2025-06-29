@@ -160,3 +160,88 @@ cd Student-Report-Generator
 .\build.bat
 .\run.bat
 ```
+
+## Deployment Guide
+
+You can deploy the Student Report Generator in several ways depending on your needs:
+
+### 1. Quick Deployment (From GitHub)
+
+The simplest way to deploy from GitHub:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Venkat5674/Student_Report-Generator_java-.git
+   cd Student_Report-Generator_java-
+   ```
+
+2. **Build and run**:
+   ```bash
+   .\build.bat
+   .\run.bat
+   ```
+
+### 2. Create Distribution Package
+
+To create a distributable package:
+
+1. **Run the deployment script**:
+   ```bash
+   .\deploy.bat
+   ```
+
+2. **Share the generated package**:
+   - The `deploy` directory contains everything needed to run the application
+   - Share this directory with users who need to run the application
+   - Users only need to run `run_application.bat` in the deploy directory
+
+### 3. GitHub Releases (Recommended)
+
+Create an official release on GitHub:
+
+1. **Create a deployment package**:
+   ```bash
+   .\deploy.bat
+   ```
+
+2. **Zip the deploy directory**:
+   ```bash
+   Compress-Archive -Path deploy\* -DestinationPath StudentReportGenerator.zip
+   ```
+
+3. **Create a GitHub Release**:
+   - Go to your GitHub repository
+   - Click on "Releases" on the right side
+   - Click "Create a new release"
+   - Tag version: `v1.0.0`
+   - Release title: `Student Report Generator v1.0.0`
+   - Description: Include release notes and installation instructions
+   - Attach the `StudentReportGenerator.zip` file
+   - Click "Publish release"
+
+### 4. Web Server Deployment
+
+For organizations with web servers:
+
+1. Create the ZIP package as described above
+2. Upload to your web server
+3. Create a download page with instructions
+4. Include a link to download Java if needed
+
+### 5. Automated Deployment with GitHub Actions
+
+Your repository already includes GitHub Actions workflows that:
+- Build the application automatically on each push
+- Create a deployable package
+
+You can extend this to automatically create releases by adding this to your workflow file:
+
+```yaml
+- name: Create Release
+  if: startsWith(github.ref, 'refs/tags/')
+  uses: softprops/action-gh-release@v1
+  with:
+    files: |
+      deploy/StudentReportGenerator.jar
+      deploy/run_application.bat
+```
