@@ -140,7 +140,7 @@ To push this project to GitHub:
    git remote add origin https://github.com/YOUR_USERNAME/Student-Report-Generator.git
 
    # Push to GitHub
-   git push -u origin main
+   git push -u origin master
    ```
 
 4. **Update after making changes**:
